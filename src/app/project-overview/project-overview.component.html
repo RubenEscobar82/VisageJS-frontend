@@ -1,0 +1,29 @@
+<div class="card project-orverwvied p-2 mb-2 shadow" (click)="alertar()">
+    <div class="actions">
+            <div class="action-list" [hidden]="!showActions">
+                <ul class="list-group">
+                    <li class="list-group-item text-light action" (click)="descargar($event)">
+                        <i class="fas fa-download"></i>&nbsp;&nbsp;&nbsp;&nbsp;Descargar
+                    </li>
+                    <li class="list-group-item text-light action" *ngIf="pickedProjectsId==2">
+                        <i class="fas fa-undo"></i>&nbsp;&nbsp;&nbsp;&nbsp;Restablecer
+                    </li>
+                    <li class="list-group-item text-light action">
+                        <i class="fas fa-expand-arrows-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Expandir
+                    </li>
+                    <li class="list-group-item text-light action">
+                        <i class="far fa-trash-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Eliminar
+                    </li>
+                </ul>                  
+            </div>
+            <button class="actions-btn btn btn-secondary" style="height: 100%;" type="button" data-toggle="tooltip" data-placement="top" title="Acciones" (click)="toggleActions($event)">
+                <i class="fas fa-2x" [ngClass]="{'fa-ellipsis-h':!showActions, 'fa-times':showActions}"></i>
+            </button>                  
+    </div>
+    <iframe [srcdoc]="project.html+'<style>'+project.css+'</style>' | noSanitize" class="project-orverview card-img-top p-2"></iframe>
+    <div class="card-body">
+        <p class="h5 text-light">{{project.title}}</p>
+        
+        <small class="text-muted">Por {{project.author}}</small>  
+    </div>
+</div>

@@ -1,0 +1,40 @@
+.main-frame-container{    
+    background-color: rgb(51, 54, 66);
+    border-radius: 5px;
+}
+.frame-cantainer{
+    height: 80vh;    
+}
+#iframe{
+
+    height: 100%;
+    background-color: white;
+}
+.btn-group{
+    float: right;
+}
+#frame-options{
+    background-color: rgb(31, 34, 41);
+}
+#btn-bootstrap{
+    background-color: rgb(121, 82, 179);
+}
+#btn-materialize{
+    background-color: rgb(238, 110, 115);
+}
+#btn-jquery{
+    background-color: rgb(7, 105, 173);
+}
+#btn-fontawesome{
+    background-color: rgb(51, 154, 240);
+}
+.btn-plugin{
+    color: white;
+    opacity: 0.5;
+}
+.btn-plugin:hover{
+    opacity: 1;
+}
+.btn-plugin.active{
+    opacity: 1;
+}

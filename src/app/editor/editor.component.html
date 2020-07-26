@@ -1,0 +1,20 @@
+<div class="container-fluid bg-success">
+  <div class="row">
+    <div class="col-12 bg-secondary">
+      <span class="text-light h-4">{{lenguajeNombre}}</span>
+    </div>
+    <div class="col-12  p-0 editor-container">
+      <ngx-codemirror class="editor"
+        [(ngModel)]="content"
+        [options]="{
+          lineNumbers: true,
+          theme: 'material',
+          mode: lenguaje,
+          lint: true,
+          lineWrapping: true
+        }"
+        (change)="updateContent()"
+      ></ngx-codemirror>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+body{
+    background-color: rgb(52, 58, 64);
+}
+.masthead{
+    height: 100vh;
+}
+.masthead .card{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.signin-input{
+    border-radius: 0%;
+}
+.form-control{
+    height: 3.5rem;
+    background-color: rgba(0, 0, 0, 0);
+}

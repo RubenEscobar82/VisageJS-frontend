@@ -1,0 +1,25 @@
+<div class="container-fluid main-frame-container pb-4">
+    <div class="row" id="frame-options">
+        <div class="col-8 ml-auto p-2">
+            <div class="btn-group mx-auto" role="group">
+                <button type="button" class="btn btn-plugin" [ngClass]="{'active': bootstrap}" (click)="toggleBootstrap()" id="btn-bootstrap"  ngbTooltip="Agregar/Quitar CDNs de Bootstrap">Bootstrap 4.5.0</button>
+                <button type="button" class="btn btn-plugin" [ngClass]="{'active': materialize}" (click)="toggleMaterialize()" id="btn-materialize"  ngbTooltip="Agregar/Quitar CDNs de Materialize">Materialize 1.0.0</button>
+                <button type="button" class="btn btn-plugin" [ngClass]="{'active': jquery}" (click)="toggleJQuery()" id="btn-jquery"  ngbTooltip="Agregar/Quitar CDNs de JQuery">JQuery 3.5.1</button>
+                <button type="button" class="btn btn-plugin" [ngClass]="{'active': fontawesome}" (click)="toggleFontawesome()" id="btn-fontawesome"  ngbTooltip="Agregar/Quitar CDNs de Font Awesome">Font Awesome 4.7</button>
+            </div>
+        </div>
+        <div class="col-4 ml-auto p-2">           
+            <div class="btn-group" role="group">
+                <button type="button" class="btn" [ngClass]="{'btn-warning': frameWidth==='48rem', 'btn-outline-warning': frameWidth!='48rem'}" ngbTooltip="768px" (click)="setFrameWidth('48rem')"><i class="fas fa-mobile-alt"></i></button>
+                <button type="button" class="btn" [ngClass]="{'btn-warning': frameWidth==='62rem', 'btn-outline-warning': frameWidth!='62rem'}" ngbTooltip="992px" (click)="setFrameWidth('62rem')"><i class="fas fa-tablet-alt"></i></button>
+                <button type="button" class="btn" [ngClass]="{'btn-warning': frameWidth==='75rem', 'btn-outline-warning': frameWidth!='75rem'}" ngbTooltip="1200px" (click)="setFrameWidth('75rem')"><i class="fas fa-desktop"></i></button>
+                <button type="button" class="btn btn-outline-warning" ngbTooltip="Abrir en otra pestaña"><i class="fas fa-external-link-alt"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 frame-cantainer p-2 text-center" >
+            <iframe id="iframe" class="border border-secondary" [ngStyle]="{'width': frameWidth}" [srcdoc]="content | noSanitize"></iframe>
+        </div>
+    </div>
+</div>

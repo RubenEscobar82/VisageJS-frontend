@@ -1,0 +1,7 @@
+<div class="container-fluid">
+    <div class="row pt-4 pb-4 pl-2 pr-2">
+        <div class="col-lg-4" *ngFor="let project of projects; index as i">
+            <app-project-overview [project]="project" [pickedProjectsId]="pickedProjectsId"></app-project-overview>
+        </div>
+    </div>
+</div>
