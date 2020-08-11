@@ -5,13 +5,13 @@
            <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4 editor-container mb-4 mb-lg-0 pr-md-1 pl-md-1">
-                        <app-editor [lenguaje]="'htmlmixed'" [lenguajeNombre]="'HTML'" (contentFromEditor)="updateHTMLContent($event)"></app-editor>
+                        <app-editor [lenguaje]="'htmlmixed'" [lenguajeNombre]="'HTML'" (contentFromEditor)="updateHTMLContent($event)" [content]="htmlContent"></app-editor>
                     </div>
                     <div class="col-md-4 editor-container mb-4 mb-lg-0 pl-md-1 pr-md-1">
-                        <app-editor [lenguaje]="'javascript'" [lenguajeNombre]="'Javascript'" (contentFromEditor)="updateJSContent($event)"></app-editor>
+                        <app-editor [lenguaje]="'javascript'" [lenguajeNombre]="'Javascript'" (contentFromEditor)="updateJSContent($event)" [content]="jsContent"></app-editor>
                     </div>
                     <div class="col-md-4 editor-container mb-2 mb-lg-0 pl-md-1 pr-md-1">
-                        <app-editor [lenguaje]="'css'" [lenguajeNombre]="'CSS'" (contentFromEditor)="updateCSSContent($event)"></app-editor>
+                        <app-editor [lenguaje]="'css'" [lenguajeNombre]="'CSS'" (contentFromEditor)="updateCSSContent($event)" [content]="cssContent"></app-editor>
                     </div>
                 </div>
            </div>
@@ -19,7 +19,11 @@
     </div>
     <div class="row mb-4">
         <div class="col-12 mx-auto pl-0 pr-0">
-            <app-frame [content]="frameContent" (emitBootstrapToggle)="toggleBootstrap($event)" (emitMaterializeToggle)="toggleMaterialize($event)" (emitJQueryToggle)="toggleJQuery($event)" (emitFontawesomeToggle)="toggleFontawesome($event)"></app-frame>
+            <app-frame [content]="frameContent" 
+            (emitBootstrapToggle)="toggleBootstrap($event)" [bootstrap]="includeBootstrap" 
+            (emitMaterializeToggle)="toggleMaterialize($event)" [materialize]="includeMaterialize" 
+            (emitJQueryToggle)="toggleJQuery($event)" [jquery]="includeJQuery" 
+            (emitFontawesomeToggle)="toggleFontawesome($event)" [fontawesome]="includeFontawesome"></app-frame>
         </div>
     </div>
 </div>

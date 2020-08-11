@@ -20,6 +20,18 @@ import { NoSanitizePipe } from './no-sanitize.pipe';
 import { IdleComponent } from './idle/idle.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { PluginsComponent } from './plugins/plugins.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import { NewFolderModalComponent } from './new-folder-modal/new-folder-modal.component';
+import { RenameFolderModalComponent } from './rename-folder-modal/rename-folder-modal.component';
+import { NewProjectModalComponent } from './new-project-modal/new-project-modal.component';
+import { NewSnippetModalComponent } from './new-snippet-modal/new-snippet-modal.component';
+import { SnippetEditorModalComponent } from './snippet-editor-modal/snippet-editor-modal.component';
+import { FoldersNavComponent } from './folders-nav/folders-nav.component';
+import { FoldersListComponent } from './folders-list/folders-list.component';
+import { SnippetProppertiesModalComponent } from './snippet-propperties-modal/snippet-propperties-modal.component';
+import { DeletedComponent } from './deleted/deleted.component';
 
 @NgModule({
   declarations: [
@@ -38,16 +50,27 @@ import { PluginsComponent } from './plugins/plugins.component';
     SignupComponent,
     NoSanitizePipe,
     IdleComponent,
-    PluginsComponent
+    PluginsComponent,
+    NewFolderModalComponent,
+    RenameFolderModalComponent,
+    NewProjectModalComponent,
+    NewSnippetModalComponent,
+    SnippetEditorModalComponent,
+    FoldersNavComponent,
+    FoldersListComponent,
+    SnippetProppertiesModalComponent,
+    DeletedComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     CodemirrorModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,52 @@
+body{
+    background-color: rgb(52, 58, 64);
+}
+.main{
+    height: 100vh;
+}
+#su-form .form-control, .step-card input{
+    height:3.5rem;
+}
+.step-card input{
+    color: white;
+}
+.step-card input:focus{
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+.step-card, .step-card .card-header, .step-card input{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.colored-stripe{
+    width: 100%;
+    height: 1rem;
+}
+.goBack{
+    float: right;
+}
+.plan{
+    cursor: pointer;
+    border-color: rgba(0,0,0,0);
+    opacity: 0.3;
+}
+.plan.active{
+    opacity: 1;
+}
+#cc-amex{
+    color: rgb(38, 113, 185);
+    background-color: white;
+}
+#cc-visa{
+    color: rgb(16, 53, 127);
+    background-color: white;
+}
+#cc-mastercard{
+    background-color: white;
+}
+.creditCard{
+    opacity: 0.4;
+}
+.creditCard:hover{
+    opacity: 1;
+}

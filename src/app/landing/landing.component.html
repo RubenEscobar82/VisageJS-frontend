@@ -27,10 +27,15 @@
                 </div>
                 <div class="row">
                     <div class="col-md-9 mb-4 mb-md-0">
-                        <input type="text" placeholder="Correo electrónico..." class="form-control">
+                        <form [formGroup]="formEmail">
+                            <input type="text" placeholder="Correo electrónico..." class="form-control" formControlName="signupEmail" 
+                            [ngClass]="{'border border-danger': signupEmail.invalid && ( signupEmail.touched || signupEmail.dirty)}">
+                        </form>
+                        <span class="text-danger mt-4" *ngIf="signupEmail.invalid && ( signupEmail.touched || signupEmail.dirty) && (!signupEmail.hasError('alreadyExists'))">¡Necesitas un correo válido para registrate!</span>
+                        <span class="text-danger mt-4" *ngIf="signupEmail.invalid && ( signupEmail.touched || signupEmail.dirty) && (signupEmail.hasError('alreadyExists'))">¡Este correo ya está registrado!</span>
                     </div>
                     <div class="col-md-3">
-                        <button class="btn btn-outline-warning form-control">¡Registrarse!</button>
+                        <button class="btn btn-outline-warning form-control" (click)="validate()">¡Registrarse!</button>
                     </div>                  
                 </div>
             </div>

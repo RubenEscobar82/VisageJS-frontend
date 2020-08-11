@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
-  content: string = "";
+  @Input() content: string;
   @Input() lenguaje:string;
   @Input() lenguajeNombre: string;
   @Output() contentFromEditor = new EventEmitter();

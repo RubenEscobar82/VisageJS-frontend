@@ -1,5 +1,5 @@
 <app-dashboard-navbar></app-dashboard-navbar>
-<div class="container-fluid main-container">
+<div class="container-fluid main-container-dashboard">
     <div class="row">
         <div class="col-10 mx-auto border border-warning rounded pt-3 pb-3">                
             <div class="container-fluid">
@@ -20,14 +20,13 @@
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-warning" type="button" id="button-addon2">
-                                    <i [ngClass]="{'fa fa-th':view==0, 'fas fa-thumbtack':view==1, 'far fa-trash-alt':view==2}"></i>
+                                    <i [ngClass]="{'fa fa-th':displayedContent==='folders', 'fas fa-thumbtack':displayedContent==='pinned', 'far fa-trash-alt':displayedContent==='deleted'}"></i>
                                 </button>
                             </div>
-                            <select class="form-control outline-form-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" 
-                            (change)="mostrar($event.target.value)">
-                                <option [value]=0 selected>Mis Proyectos</option>
-                                <option [value]=1>Fijados</option>
-                                <option [value]=2>Eliminados</option>
+                            <select class="form-control outline-form-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="displayedContent">
+                                <option value="folders" selected>Mis Proyectos</option>
+                                <option value="pinned">Fijados</option>
+                                <option value="deleted">Eliminados</option>
                             </select>
                         </div>
                     </div>
@@ -46,47 +45,9 @@
         </div>
     </div>
     <div class="row mt-4 mb-5">
-        <div class="col-10 mx-auto border border-warning rounded pt-3" *ngIf="!nav">
-            <div class="container-fluid p-0">
-                <div class="row pb-4">
-                    <div class="col-6 offset-6 col-md-3 offset-md-9">
-                        <button class="btn btn-success form-control"><i class="fas fa-folder-plus"></i> Agregar carpeta</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4 mb-4" *ngFor="let carpeta of carpetas; index as i">
-                        <div class="card folder text-light" (click)="toggleNav()">
-                            <div class="icon-container text-center pt-4 pb-4">
-                                <i class="fas fa-folder-open fa-6x card-img-top"></i>
-                            </div>
-                            <div class="card-header">
-                                <span class="card-title h4">{{carpeta.nombre}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-10 mx-auto border border-warning rounded pt-3" *ngIf="nav">
-            <div class="container-fluid p-0">
-                <div class="row mb-2">
-                    <div class="col-md-8">
-                        <button class="btn btn-outline-primary" (click)="toggleNav()">
-                            <i class="fas fa-chevron-left"></i> Regresar
-                        </button>
-                    </div>
-                    <div class="col-md-4 text-right">
-                        <button *ngIf="view==0" class="btn btn-success mb-4"><i class="fas fa-laptop-code"></i> Crear proyecto</button>
-                        <button *ngIf="view==0" class="ml-2 btn btn-success mb-4"><i class="fas fa-file-code"></i> Crear Snippet</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">                        
-                        <app-project-list [projects]="pickedProjects" [pickedProjectsId]="view" *ngIf="listDisplay"></app-project-list>    
-                        <app-project-overview-container [projects]="pickedProjects" [pickedProjectsId]="view" *ngIf="!listDisplay"></app-project-overview-container>
-                    </div>
-                </div>                
-            </div>
+        <div class="col-10 border mx-auto border-warning rounded p-3">
+            <app-folders-nav *ngIf="displayedContent==='folders'" [listDisplay]="listDisplay"></app-folders-nav>
+            <app-deleted *ngIf="displayedContent==='deleted'" [listDisplay]="listDisplay"></app-deleted>
         </div>
     </div>
 </div>

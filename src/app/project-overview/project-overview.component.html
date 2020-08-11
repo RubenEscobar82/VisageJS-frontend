@@ -1,17 +1,17 @@
-<div class="card project-orverwvied p-2 mb-2 shadow" (click)="alertar()">
+<div class="card project-orverwvied p-2 mb-2 shadow" (click)="emitOpenEditor()">
     <div class="actions">
             <div class="action-list" [hidden]="!showActions">
                 <ul class="list-group">
                     <li class="list-group-item text-light action" (click)="descargar($event)">
                         <i class="fas fa-download"></i>&nbsp;&nbsp;&nbsp;&nbsp;Descargar
                     </li>
-                    <li class="list-group-item text-light action" *ngIf="pickedProjectsId==2">
+                    <li class="list-group-item text-light action" (click)="emitShowProperties(); $event.stopPropagation()" *ngIf="displayedContent!='deleted'">
+                        <i class="fas fa-bars"></i>&nbsp;&nbsp;&nbsp;&nbsp;Propiedades
+                    </li>
+                    <li class="list-group-item text-light action" *ngIf="displayedContent==='deleted'" (click)="emitRestore(content._id); $event.stopPropagation()">
                         <i class="fas fa-undo"></i>&nbsp;&nbsp;&nbsp;&nbsp;Restablecer
                     </li>
-                    <li class="list-group-item text-light action">
-                        <i class="fas fa-expand-arrows-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Expandir
-                    </li>
-                    <li class="list-group-item text-light action">
+                    <li class="list-group-item text-light action" (click)="eliminar(content._id); $event.stopPropagation()">
                         <i class="far fa-trash-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Eliminar
                     </li>
                 </ul>                  
@@ -20,10 +20,15 @@
                 <i class="fas fa-2x" [ngClass]="{'fa-ellipsis-h':!showActions, 'fa-times':showActions}"></i>
             </button>                  
     </div>
-    <iframe [srcdoc]="project.html+'<style>'+project.css+'</style>' | noSanitize" class="project-orverview card-img-top p-2"></iframe>
+    <iframe [srcdoc]="innerContent | noSanitize" class="project-orverview iframe-container p-2" *ngIf="content.type==='project'"></iframe>
+    <div class="card-img-top text-center" *ngIf="content.type==='snippet'">
+        <div class="icon-container text-light text-center pt-4 pb-4">
+            <i class="fas fa-file-alt fa-7x"></i>
+        </div>
+    </div>
     <div class="card-body">
-        <p class="h5 text-light">{{project.title}}</p>
+        <p class="h5 text-light">{{content.name}}</p>
         
-        <small class="text-muted">Por {{project.author}}</small>  
+        <small class="text-muted">Por {{content.author}}</small>  
     </div>
 </div>

@@ -1,5 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-
+import { Router, ActivatedRoute } from '@angular/router';
+import { NewProjectModalComponent } from '../new-project-modal/new-project-modal.component';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NewFolderModalComponent } from '../new-folder-modal/new-folder-modal.component';
+import { ConnectService } from '../connect-service.service';
+import { Location } from '@angular/common'
 @Component({
   selector: 'app-idle',
   templateUrl: './idle.component.html',
@@ -11,18 +16,45 @@ export class IdleComponent implements OnInit {
   jsContent:string = "";
   cssContent:string = "";
   frameContent: string = ``;
+  includeBootstrap: boolean = false;
+  includeMaterialize: boolean = false;
+  includeJQuery: boolean = false;
+  includeFontawesome: boolean = false;
   bootstrap = "";
   materializeCSS = "";
   materializeJS = "";
   jquery = "";
   fontawesome="";
-
-  constructor() { }
+  alreadySaved: boolean = false;
+  projectId: string = "";
+  constructor( private activatedRoute: ActivatedRoute, private modalService: NgbModal, private connectService: ConnectService, private router: Router, private location: Location ) { }
 
   ngOnInit(): void {
-    window.onerror = function() {
-      alert("hay un error");
-    };
+    if(this.activatedRoute.snapshot.paramMap.get('projectId')!='new'){
+      this.projectId = this.activatedRoute.snapshot.paramMap.get('projectId');
+      this.connectService.getProject(this.activatedRoute.snapshot.paramMap.get('folderId'),this.activatedRoute.snapshot.paramMap.get('projectId'))
+      .subscribe(res =>{
+        if(res['ok']==1){
+          console.log(res['project']);
+          this.htmlContent = res['project']['htmlContent'];
+          this.jsContent = res['project']['jsContent'];
+          this.cssContent = res['project']['cssContent'];
+          this.includeBootstrap= res['project']['includeBootstrap'];
+          this.includeMaterialize= res['project']['includeMaterialize'];
+          this.includeJQuery= res['project']['includeJQuery'];
+          this.includeFontawesome= res['project']['includeFontawesome'];
+
+          this.toggleBootstrap(res['project']['includeBootstrap']);
+          this.toggleMaterialize(res['project']['includeMaterialize']);
+          this.toggleJQuery(res['project']['incluedeJQuery']);
+          this.toggleFontawesome(res['project']['includeFontawesome']);
+          this.render();
+        }
+        else{
+          alert("algo salió mal aquí: "+res['error']);
+        }
+      });
+    }
   }
   updateHTMLContent(htmlContent){
     this.htmlContent = htmlContent; 
@@ -33,7 +65,60 @@ export class IdleComponent implements OnInit {
   updateCSSContent(cssContent){
     this.cssContent = cssContent;
   }
-  setFrameContent(){
+
+  setFrameContent(){    
+    if(this.activatedRoute.snapshot.paramMap.get('projectId')=="new" && this.alreadySaved==false){
+      const modalRef = this.modalService.open(NewProjectModalComponent);
+      modalRef.componentInstance.projectAdded.subscribe((projectName)=>{
+        let content2Save = {
+          name: projectName,
+          htmlContent: this.htmlContent,
+          jsContent: this.jsContent,
+          cssContent: this.cssContent,
+          includeBootstrap: this.includeBootstrap,
+          includeMaterialize: this.includeMaterialize,
+          includeJQuery: this.includeJQuery,
+          includeFontawesome: this.includeFontawesome,
+          public: false
+        };
+        this.connectService.saveProject(content2Save, this.activatedRoute.snapshot.paramMap.get('folderId')).subscribe(res =>{
+          if(res['ok']==1){
+            this.location.replaceState(`editor/${this.activatedRoute.snapshot.paramMap.get('folderId')}/${res['projectId']}`);
+            this.alreadySaved = true;
+            this.projectId = res['projectId'];
+          }
+          else{
+            alert("Algo salió mal: "+res['error']);
+            console.log(res['error']);
+          }
+        });
+      });
+    }
+    else{
+        let content2Save = {
+          htmlContent: this.htmlContent,
+          jsContent: this.jsContent,
+          cssContent: this.cssContent,
+          includeBootstrap: this.includeBootstrap,
+          includeMaterialize: this.includeMaterialize,
+          includeJQuery: this.includeJQuery,
+          includeFontawesome: this.includeFontawesome,
+          public: false
+        };
+        this.connectService.updateProject(content2Save, this.activatedRoute.snapshot.paramMap.get('folderId'), this.projectId).subscribe(res =>{
+          if(res['ok']==1){
+            //this.router.navigate(['editor',this.activatedRoute.snapshot.paramMap.get('folderId'),res['projectId']]);
+            //alert("Actualizado");
+          }
+          else{
+            alert("Algo salió mal: "+res['error']);
+            console.log(res['error']);
+          }
+        });
+    }
+    this.render();    
+  }
+  render(){
     this.frameContent = `
       <html>
         <head>
@@ -58,6 +143,7 @@ export class IdleComponent implements OnInit {
     `;
   }
   toggleBootstrap(includeBootstrap){
+    this.includeBootstrap = includeBootstrap;
     if(includeBootstrap){
       this.bootstrap = `
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -72,6 +158,7 @@ export class IdleComponent implements OnInit {
     this.setFrameContent()
   }
   toggleMaterialize(includeMaterialize){
+    this.includeMaterialize = includeMaterialize;
     if(includeMaterialize){
       this.materializeCSS = `
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -88,6 +175,7 @@ export class IdleComponent implements OnInit {
     this.setFrameContent()
   }
   toggleJQuery(includeJQuery){
+    this.includeJQuery = includeJQuery;
     if(includeJQuery){
       this.jquery = `
       <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" ></script>
@@ -99,6 +187,7 @@ export class IdleComponent implements OnInit {
     this.setFrameContent()
   }
   toggleFontawesome(includeFontawesome){
+    this.includeFontawesome = includeFontawesome;
     if(includeFontawesome){
       this.fontawesome = `
         <script src="https://use.fontawesome.com/093c973c68.js"></script>

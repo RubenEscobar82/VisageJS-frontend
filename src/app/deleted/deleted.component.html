@@ -1,0 +1,7 @@
+<div class="container-fluid">
+    <app-project-overview-container [content]="deletedItems" *ngIf="!listDisplay" [displayedContent]="'deleted'" 
+    (restore)="restore($event)">
+    </app-project-overview-container>
+    <app-project-list [content]="deletedItems" [displayedContent]="'deleted'" *ngIf="listDisplay">
+    </app-project-list>
+</div>

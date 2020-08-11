@@ -7,10 +7,10 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class FrameComponent implements OnInit {
   frameWidth: string = '75rem';
-  bootstrap: boolean = false;
-  materialize: boolean = false;
-  jquery: boolean = false;
-  fontawesome: boolean = false;
+  @Input() bootstrap: boolean;
+  @Input() materialize: boolean;
+  @Input() jquery: boolean;
+  @Input() fontawesome: boolean;
 
   @Input() content: string;
   @Output() emitBootstrapToggle = new EventEmitter();

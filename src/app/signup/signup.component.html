@@ -1,1 +1,149 @@
-<p>signup works!</p>
+<div class="contianer-fluid main">
+    <div class="row h-100 m-0">
+        <div class="col-lg-4 mx-auto my-auto" *ngIf="step==1">
+            <div class="card step-card">
+               <div class="card-header text-light">
+                    <small class="font-weight-bold">Paso 1 de 3</small>                 
+               </div>
+               <div class="card-body">
+                    <p class="h4 font-weight-light text-light">Ingresa tu contraseña y tu nombre de usuario para crear proyectos al instante.</p>
+                    <span class="text-light">Email</span>
+                    <br>
+                    <span class="font-weight-bold text-light">{{signupEmail}}</span>
+                    <form [formGroup]="formPassword" id="su-form">
+                        <div class="input-group mt-4">
+                            <input [type]="text" class="form-control" placeholder="Nombre de usuario" formControlName="userName" 
+                            [ngClass]="{'border border-danger': userName.invalid && (userName.touched || userName.dirty)}">
+                        </div>
+                        <p class="text-danger"  *ngIf="userName.invalid && ( userName.touched || userName.dirty)">*Campo obligatorio</p>
+                        <div class="input-group mt-4">
+                            <div class="input-group-prepend">
+                              <button class="btn btn-outline-light pl-3 pr-3" (click)="togglePasswordVisible()" 
+                              [ngClass]="{'border border-danger': password.invalid && (password.touched || password.dirty)}">
+                                <i class="far" [ngClass]="{'fa-eye': !passwordVisible, 'fa-eye-slash': passwordVisible}"></i>
+                              </button>
+                            </div>
+                            <input [type]="tipo" class="form-control" id="inlineFormInputGroup" placeholder="Contraseña" formControlName="password" 
+                            [ngClass]="{'border border-danger': password.invalid && (password.touched || password.dirty)}" (change)="changePassword()">
+                        </div>
+                        <p class="text-danger"  *ngIf="password.invalid && ( password.touched || password.dirty)">*Campo obligatorio</p>
+                        <div class="form-group mt-4">
+                            <input type="password" placeholder="Confirmar contraseña" class="form-control mb-2" formControlName="confirmPassword" 
+                            [ngClass]="{'border border-danger': (confirmPassword.invalid && ( confirmPassword.touched || confirmPassword.dirty)) || (confirmPassword.hasError('mismatch') && (confirmPassword.touched || confirmPassword.dirty))}" (change)="changePassword()">
+                            <p class="text-danger"  *ngIf="confirmPassword.invalid && ( confirmPassword.touched || confirmPassword.dirty) && !confirmPassword.hasError('mismatch')">*Campo obligatorio</p>
+                            <p class="text-danger"  *ngIf="confirmPassword.hasError('mismatch') && (confirmPassword.touched || confirmPassword.dirty)">*Las contraseñas deben coincidir</p>
+                        </div>                        
+                        <div class="form-group mt-4 pt-4">
+                            <button type="button" class="btn btn-outline-warning form-control" (click)="validate()">Continuar</button>
+                        </div>
+                    </form>
+               </div>
+            </div>
+        </div>
+        <div class="col-lg-8 mx-auto my-auto" *ngIf="step==2">
+            <div class="card step-card">
+                <div class="card-header text-light">
+                    <small class="font-weight-bold"> Paso 2 de {{ selectedPlan == 1 ? "2" : "3" }}</small>
+                    <a class="goBack btn" (click)="goBack()"><i class="fas fa-arrow-left"></i> Regresar</a>                  
+               </div>
+               <div class="card-body">
+                    <p class="h4 font-weight-light text-light mb-4">Selecciona el plan que te convenga, puedes cambiar o cancelar en cualquier momento.</p>
+                    <div class="contianer-fluid">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="card mb-4 plan" [ngClass]="{'active': selectedPlan==1}" (click)="selectedPlan=1">
+                                    <div class="card-header pt-0 pl-0 pr-0 text-center">
+                                        <div class="colored-stripe bg-secondary"></div>
+                                        <h2 class="font-weight-bold pt-5 pb-5">$0</h2>   
+                                    </div>
+                                    <div class="card-body text-left">                                                                            
+                                        <p class="h5">
+                                            <i class="fas fa-times text-secondary"></i> Carpetas y proyectos privados
+                                        </p>
+                                        <p class="h5">
+                                            <i class="fas fa-check text-secondary"></i> 5 proyectos y 5 snippets
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="card mb-4 plan" [ngClass]="{'active': selectedPlan==2}" (click)="selectedPlan=2">
+                                    <div class="card-header pt-0 pl-0 pr-0 text-center">
+                                        <div class="colored-stripe bg-info"></div>
+                                        <h2 class="font-weight-bold pt-5 pb-5">$5.00/Mes</h2>
+                                    </div>
+                                    <div class="card-body text-left">
+                                        
+                                        <p class="h5">
+                                            <i class="fas fa-check text-info"></i> Carpetas y proyectos privados
+                                        </p>
+                                        <p class="h5">
+                                            <i class="fas fa-check text-info"></i> 50 proyectos y 50 snippets
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mx-auto">
+                                <button class="btn btn-outline-warning form-control" (click)="validate()">{{ selectedPlan == 1 ? "Comenzar" : "Continuar" }}</button>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mx-auto my-auto" *ngIf="step==3">
+            <div class="card step-card">
+                <div class="card-header text-light" *ngIf="step==3 && creditCard==0">
+                    <small class="font-weight-bold">Paso 3 de 3</small>                    
+                    <a class="goBack btn" (click)="goBack()"><i class="fas fa-arrow-left"></i> Regresar</a>  
+                </div>
+                <div class="card-body text-center" *ngIf="creditCard==0">
+                    <p class="h4 font-weight-light text-light mb-4">Configura tu forma de pago.</p>
+                    <a class="btn creditCard ml-2 mr-2" (click)="creditCard=1" id="cc-mastercard">
+                        <i class="fab fa-cc-mastercard fa-3x"></i>
+                    </a>
+                    <a class="btn creditCard ml-2 mr-2" (click)="creditCard=1" id="cc-visa">
+                        <i class="fab fa-cc-visa fa-3x"></i>
+                    </a>
+                    <a class="btn creditCard ml-2 mr-2" (click)="creditCard=1" id="cc-amex">
+                        <i class="fab fa-cc-amex fa-3x"></i>
+                    </a>
+                </div>
+                <div class="card-header text-light" *ngIf="step==3 && creditCard>0">
+                    <small class="font-weight-bold">Paso 3 de 3</small>                    
+                    <a class="goBack btn" (click)="creditCard=0"><i class="fas fa-arrow-left"></i> Regresar</a>  
+                </div>
+                <div class="card-body" *ngIf="step==3 && creditCard>0">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nombre" class="form-control" [(ngModel)]="nombreTarjeta">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Apellido" class="form-control" [(ngModel)]="apellidoTarjeta">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Número de tarjeta" class="form-control" [(ngModel)]="numeroTarjeta">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" placeholder="Fecha de vencimiento (MM/AA)" class="form-control" [(ngModel)]="fechaTarjeta">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" placeholder="Código de seguridad" class="form-control" [(ngModel)]="codigoTarjeta">
+                    </div>
+                    <small class="text-light">
+                        Al hacer clic en el botón “Comenzar”, aceptas nuestros Términos de uso y 
+                        nuestra Declaración de privacidad, declaras que tienes más de 18 años y que VisageJS 
+                        continuará tu membresía de manera automática y, hasta que la canceles, 
+                        te facturará el cargo mensual (actualmente de USD5.00) a través de la forma de pago elegida.
+                        Para cancelarla, visita tu Cuenta y haz clic en “Cancelar membresía”.
+                        No se ofrecen reembolsos ni créditos por meses parciales.
+                    </small>
+                    <div class="form-group mt-4">
+                        <button class="btn btn-outline-warning form-control" (click)="validate()">Comenzar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
