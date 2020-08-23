@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-project-overview',
@@ -19,9 +20,10 @@ export class ProjectOverviewComponent implements OnInit {
   @Output() download = new EventEmitter();
   innerContent: string;
   showActions:boolean = false;
-  constructor(private router: Router) { }
+  constructor(private router: Router, private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    this.content.author = this.cookieService.get('userName');
     let bootstrap = "";
     let materialize = "";    
     let fontawesome = "";

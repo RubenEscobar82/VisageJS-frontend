@@ -29,3 +29,6 @@ body{
 #btn-fontawesome{
     background-color: rgb(51, 154, 240);
 }
+.CodeMirror {
+    height: 100%;
+}
