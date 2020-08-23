@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ConnectService } from '../connect-service.service';
+import { ProjectsExcededModalComponent } from '../projects-exceded-modal/projects-exceded-modal.component';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'app-deleted',
   templateUrl: './deleted.component.html',
@@ -9,7 +12,7 @@ export class DeletedComponent implements OnInit {
   @Input() listDisplay: string;
   deletedItems = new Array;
 
-  constructor(private connectService: ConnectService) { }
+  constructor(private connectService: ConnectService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.updateDeletedItemList();
@@ -28,6 +31,25 @@ export class DeletedComponent implements OnInit {
 
   restore(contentId){
     this.connectService.retoreItem(contentId).subscribe(res =>{
+      if(res['ok']==1){
+        this.updateDeletedItemList();
+      }
+      else{
+        if((res['error']==='projectsCount') || (res['error']==='snippetsCount')){
+          let excededContent = "proyectos";
+          if(res['error']==='snippetsCount'){
+            excededContent = "snippets";
+          }
+          const modalRef = this.modalService.open(ProjectsExcededModalComponent);
+          modalRef.componentInstance.pro = res['pro'];
+          modalRef.componentInstance.type = excededContent;
+        }
+      }
+    });
+  }
+
+  hardDelete(contentId){
+    this.connectService.hardDelete(contentId).subscribe(res =>{
       if(res['ok']==1){
         this.updateDeletedItemList();
       }

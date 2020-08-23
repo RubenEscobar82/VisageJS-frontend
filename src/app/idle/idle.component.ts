@@ -3,8 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NewProjectModalComponent } from '../new-project-modal/new-project-modal.component';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewFolderModalComponent } from '../new-folder-modal/new-folder-modal.component';
+import { ProjectsExcededModalComponent } from '../projects-exceded-modal/projects-exceded-modal.component';
 import { ConnectService } from '../connect-service.service';
-import { Location } from '@angular/common'
+import { DownloadService } from '../download.service';
+import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-idle',
   templateUrl: './idle.component.html',
@@ -12,6 +15,8 @@ import { Location } from '@angular/common'
   encapsulation: ViewEncapsulation.None
 })
 export class IdleComponent implements OnInit {
+  projectName: string = "Proyecto sin título"
+  project: any = {};
   htmlContent:string = "";
   jsContent:string = "";
   cssContent:string = "";
@@ -27,7 +32,7 @@ export class IdleComponent implements OnInit {
   fontawesome="";
   alreadySaved: boolean = false;
   projectId: string = "";
-  constructor( private activatedRoute: ActivatedRoute, private modalService: NgbModal, private connectService: ConnectService, private router: Router, private location: Location ) { }
+  constructor( private activatedRoute: ActivatedRoute, private modalService: NgbModal, private connectService: ConnectService, private router: Router, private location: Location, private download: DownloadService ) { }
 
   ngOnInit(): void {
     if(this.activatedRoute.snapshot.paramMap.get('projectId')!='new'){
@@ -35,7 +40,8 @@ export class IdleComponent implements OnInit {
       this.connectService.getProject(this.activatedRoute.snapshot.paramMap.get('folderId'),this.activatedRoute.snapshot.paramMap.get('projectId'))
       .subscribe(res =>{
         if(res['ok']==1){
-          console.log(res['project']);
+          this.projectName=res['project']['name']
+          this.project = res['project'];
           this.htmlContent = res['project']['htmlContent'];
           this.jsContent = res['project']['jsContent'];
           this.cssContent = res['project']['cssContent'];
@@ -43,10 +49,9 @@ export class IdleComponent implements OnInit {
           this.includeMaterialize= res['project']['includeMaterialize'];
           this.includeJQuery= res['project']['includeJQuery'];
           this.includeFontawesome= res['project']['includeFontawesome'];
-
           this.toggleBootstrap(res['project']['includeBootstrap']);
           this.toggleMaterialize(res['project']['includeMaterialize']);
-          this.toggleJQuery(res['project']['incluedeJQuery']);
+          this.toggleJQuery(res['project']['includeJQuery']);
           this.toggleFontawesome(res['project']['includeFontawesome']);
           this.render();
         }
@@ -65,13 +70,12 @@ export class IdleComponent implements OnInit {
   updateCSSContent(cssContent){
     this.cssContent = cssContent;
   }
-
   setFrameContent(){    
     if(this.activatedRoute.snapshot.paramMap.get('projectId')=="new" && this.alreadySaved==false){
       const modalRef = this.modalService.open(NewProjectModalComponent);
-      modalRef.componentInstance.projectAdded.subscribe((projectName)=>{
+      modalRef.componentInstance.projectAdded.subscribe((data)=>{
         let content2Save = {
-          name: projectName,
+          name: data.name,
           htmlContent: this.htmlContent,
           jsContent: this.jsContent,
           cssContent: this.cssContent,
@@ -79,17 +83,21 @@ export class IdleComponent implements OnInit {
           includeMaterialize: this.includeMaterialize,
           includeJQuery: this.includeJQuery,
           includeFontawesome: this.includeFontawesome,
-          public: false
+          public: data.public
         };
         this.connectService.saveProject(content2Save, this.activatedRoute.snapshot.paramMap.get('folderId')).subscribe(res =>{
           if(res['ok']==1){
+            this.projectName = data.name;
             this.location.replaceState(`editor/${this.activatedRoute.snapshot.paramMap.get('folderId')}/${res['projectId']}`);
             this.alreadySaved = true;
             this.projectId = res['projectId'];
           }
           else{
-            alert("Algo salió mal: "+res['error']);
-            console.log(res['error']);
+            if(res['error']==='projectsCount'){
+              const modalRef = this.modalService.open(ProjectsExcededModalComponent);
+              modalRef.componentInstance.pro = res['pro'];
+              modalRef.componentInstance.type = 'proyectos';
+            }
           }
         });
       });
@@ -178,7 +186,7 @@ export class IdleComponent implements OnInit {
     this.includeJQuery = includeJQuery;
     if(includeJQuery){
       this.jquery = `
-      <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" ></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
       `;
     }
     else{
@@ -197,5 +205,9 @@ export class IdleComponent implements OnInit {
       this.fontawesome="";
     }
     this.setFrameContent()
+  }
+
+  downloadProject(){
+    this.download.saveProject(this.project);
   }
 }

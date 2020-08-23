@@ -1,9 +1,10 @@
 body{
-    background-color: rgb(52, 58, 64);;
+    background-color: rgb(41, 49, 59);
 }
-.main-container{
+.editor-main-container{
     height: 100vh;
     padding-top: 5rem;
+    background-color: rgb(41, 49, 59);
 }
 #btn-bootstrap{
     background-color: rgb(121, 82, 179);

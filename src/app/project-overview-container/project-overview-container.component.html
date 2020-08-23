@@ -1,9 +1,17 @@
 <div class="container-fluid p-0">
     <div class="row p-0">
+        <div class="col-12 mx-auto" *ngIf="content.length==0">
+            <div class="card mt-5 mb-5 empty-warning">
+                <div class="card-body text-center text-light mt-5 mb-5 pt-5 pb-5">
+                    <h3 class="font-weight-light">No hay ningún contenido que mostrar</h3>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-4" *ngFor="let item of content; index as i">
             <app-project-overview [content]="item" [pickedProjectsId]="pickedProjectsId" 
             [folderId]="folderId" (openEditor)="emitOpenEditor($event)" (showProperties)="emitShowProperties($event)" 
-            (deleteContent)="emitDeletContent($event)" [displayedContent]="displayedContent" (restore)="emitRestore($event)">
+            (deleteContent)="emitDeletContent($event)" (emitHardDelete)="emitHardDelete($event)" 
+            [displayedContent]="displayedContent" (restore)="emitRestore($event)" (download)="emitDownload($event)">
             </app-project-overview>
         </div>
     </div>

@@ -1,0 +1,18 @@
+<div class="modal-header">
+    <h4 class="modal-title">Cantidad de archivos excedida</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+        Haz excedido la cantidad máxima de {{type}} permitidos (50 {{type}}). 
+        <span *ngIf="!pro">
+            <span class="text-primary" style="cursor: pointer;" (click)="go2Settings()">¡Actualiza tu plan a Pro </span>
+            para poder crear hasta 50 {{type}}!
+        </span>
+    </p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Aceptar</button>
+</div>

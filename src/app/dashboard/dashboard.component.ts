@@ -16,7 +16,8 @@ export class DashboardComponent implements OnInit {
   listDisplay:boolean = false;
   view:number = 0;
   displayedContent: string = "folders";
-
+  searchText: string = "";
+  results = [];
   constructor( private connectService: ConnectService, private router: Router) { }
 
   ngOnInit(): void {
@@ -25,5 +26,17 @@ export class DashboardComponent implements OnInit {
 
   switchDisplay(){
     this.listDisplay = !this.listDisplay;
+  }
+
+  search(){
+    this.connectService.searchContent(this.searchText).subscribe(res => {
+      if(res['ok']==1){
+        this.results=res['result'];
+        console.log(res['result']);
+      }
+      else{
+        alert(`algo salió mal ${res['error']}`);
+      }
+    });
   }
 }

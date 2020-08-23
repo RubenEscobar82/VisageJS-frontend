@@ -1,11 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@600&display=swap');
+
+.visage-logo{
+    font-family: 'Spartan', sans-serif;
+    position: absolute;
+    left: 3.5rem;
+    top: 2rem;
+}
+
 body{
-    background-color: rgb(52, 58, 64);
+    background-color: rgb(42, 50, 60);
 }
 .main{
     height: 100vh;
 }
-#su-form .form-control, .step-card input{
+#su-form .form-control, .step-card-input, .next-step-button{
     height:3.5rem;
+    
+}
+.step-card-input{
+    background-color: rgb(59, 70, 84);
+    border-color: rgb(69, 82, 98);
 }
 .step-card input{
     color: white;
@@ -15,8 +29,22 @@ body{
     background-color: rgba(255, 255, 255, 0.1);
     color: white;
 }
-.step-card, .step-card .card-header, .step-card input{
-    background-color: rgba(0, 0, 0, 0.1);
+.step-card, .step-card .card-header.step-header, .step-card input{
+    background-color: rgb(50, 60, 72);
+}
+.next-step-button{
+    background-color: rgb(4, 162, 179);
+    border: none;
+    color: white;
+    transition: 200ms;  
+}
+.next-step-button:hover{
+    background-color: rgb(2, 103, 115);    
+    box-shadow: none;
+}
+.next-step-button:active{
+    background-color: rgb(2, 69, 77);
+    border: none;
 }
 .colored-stripe{
     width: 100%;

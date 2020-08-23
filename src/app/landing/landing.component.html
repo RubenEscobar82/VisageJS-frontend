@@ -1,11 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark mb-3 fixed-top">
     <div class="container">
-        <a class="navbar-brand" [routerLink]="'.'"><span class="text-warning">&lt;/</span>VisageJS<span class="text-warning">&gt;</span></a>
-
+        <a class="navbar-brand visage-logo" [routerLink]="'.'">VisageJS</a>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item mr-lg-3">
                 <a class="nav-link" href="/signin">
-                    <button type="button" class="btn btn-outline-warning">
+                    <button type="button" class="btn landing-button">
                         Acceder
                     </button>
                 </a>
@@ -14,14 +13,14 @@
     </div>    
 </nav>
 <div class="container-fluid bg-dark" id="masthead">
-    <div class="row h-100 main-container">
+    <div class="row h-100 landing-main-container">
         <div class="layer container-fluid p-0 m-0"></div>
         <div class="col-md-8 mx-auto my-auto">
             <div class="container-fluid">
                 <div class="row mb-4">
                     <div class="col-12 mx-auto text-center">
                         <span class="h3 text-light">
-                            ¡La plataforma para probar y mostrar fragmentos de código HTML, CSS, JavaScript y demás, creados por el ti!
+                            ¡La plataforma para probar y mostrar fragmentos de código HTML, CSS, JavaScript y demás, creados por ti!
                         </span>
                     </div>
                 </div>
@@ -35,7 +34,7 @@
                         <span class="text-danger mt-4" *ngIf="signupEmail.invalid && ( signupEmail.touched || signupEmail.dirty) && (signupEmail.hasError('alreadyExists'))">¡Este correo ya está registrado!</span>
                     </div>
                     <div class="col-md-3">
-                        <button class="btn btn-outline-warning form-control" (click)="validate()">¡Registrarse!</button>
+                        <button class="btn form-control landing-button" (click)="validate()">¡Registrarse!</button>
                     </div>                  
                 </div>
             </div>
@@ -44,15 +43,15 @@
     <div class="row features bg-dark text-info pt-4 pb-2">
         <div class="col-md-4 pt-5 text-center">
             <i class="fas fa-share fa-6x"></i>
-            <p class="h2 p-5">Comparte los trabajos que desees y accede a los proyectos de otros desarrolladores</p>
+            <p class="h2 p-5 font-weight-light">Comparte los trabajos que desees y accede a los proyectos de otros desarrolladores</p>
         </div>
         <div class="col-md-4 pt-5 text-center">
             <i class="fas fa-mobile-alt fa-6x"></i>
-            <p class="h2 p-5">Realiza pruebas de diferentes configuraciones de tamaños sobre tu proyecto</p>
+            <p class="h2 p-5 font-weight-light">Realiza pruebas de diferentes configuraciones de tamaños sobre tu proyecto</p>
         </div>
         <div class="col-md-4 pt-5 text-center">
             <i class="fas fa-box-open fa-6x"></i>
-            <p class="h2 p-5">Usa los frameworks de CSS y herramientas más populares</p>
+            <p class="h2 p-5 font-weight-light">Utiliza los frameworks de CSS y herramientas más populares</p>
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-dark mb-3 fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark mb-3 fixed-top shadow" >
     <div class="container">
-        <a class="navbar-brand" [routerLink]="'.'"><span class="text-warning">&lt;/</span>VisageJS<span class="text-warning">&gt;</span></a>
+        <a class="navbar-brand visage-logo" [routerLink]="'.'">VisageJS</a>
   
         <!-- Step 3: Toggle the value of the property when the toggler button is clicked. -->
         <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
@@ -10,24 +10,24 @@
         <!-- Step 2: Add the ngbCollapse directive to the element below. -->
         <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item mr-lg-3 active">
+                <li class="nav-item mr-lg-3" [ngClass]="{'active':selectedSite==='dashboard'}">
                     <a class="nav-link" href="/dashboard">
-                        <i class="fas fa-archive"></i>  Mi tablero <span class="sr-only">(current)</span>
+                        <i class="fas fa-chalkboard"></i>  Mi tablero <span class="sr-only">(current)</span>
                     </a>
                 </li>
-                <li class="nav-item mr-lg-3">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-globe-europe"></i> Explorar
+                <li class="nav-item mr-lg-3" style="cursor: pointer;" [ngClass]="{'active':selectedSite==='explore'}">
+                    <a class="nav-link" (click)="$event.preventDefault(); go2Explore()">
+                        <i class="fas fa-globe-europe" ></i> Explorar
                     </a>
                 </li>
                 <li class="nav-item" ngbDropdown>
                     <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdown1" role="button">
-                        <i class="fas fa-user"></i> Ruben Escobar
+                        <i class="fas fa-user"></i> {{username}}
                     </a>
                     <div ngbDropdownMenu aria-labelledby="navbarDropdown1" class="dropdown-menu">
-                        <a ngbDropdownItem href="#" (click)="$event.preventDefault()"><i class="fas fa-cogs"></i> Configuración de Cuenta</a>
+                        <a ngbDropdownItem href="#" (click)="$event.preventDefault(); go2Settings()"><i class="fas fa-cogs"></i> Configuración de Cuenta</a>
                         <div class="dropdown-divider"></div>
-                        <a ngbDropdownItem href="#" (click)="logOut($event)"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+                        <a ngbDropdownItem href="#" (click)="$event.preventDefault(); logOut($event)"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
                     </div>
                 </li>
             </ul>

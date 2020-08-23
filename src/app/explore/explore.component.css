@@ -1,0 +1,30 @@
+body{
+    background-color: rgb(42, 50, 60);
+}
+.explore-main-container{
+    margin-top: 5rem
+}
+.empty-warning{
+    background-color: rgba(0, 0, 0, 0.3)
+}
+.subcontainer{
+    background-color: rgb(50, 60, 72);
+    border: 1px solid;
+    border-color: rgb(69, 82, 98);
+}
+.dashboard-outline-input{
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(4, 162, 179);
+    border-color:rgb(4, 162, 179); 
+}
+.dashboard-outline-button{
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(4, 162, 179);
+    border-color:rgb(4, 162, 179);  
+    transition: 200ms;
+    box-shadow: none;
+}
+.dashboard-outline-button:hover{
+    background-color: rgb(4, 162, 179);
+    color: white;
+}

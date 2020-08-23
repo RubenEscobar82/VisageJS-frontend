@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-lg-4 mb-4">
+            <button class="btn btn-outline-primary form-control" (click)="emitReturn()">
+                <i class="fas fa-chevron-left"></i> Regresar
+            </button>
+        </div>
+    </div>
+    <div class="row" *ngIf="listDisplay">
+        <div class="col-12">
+            <app-search-results-list [content]="results" (openEditor)="openEditor($event)" 
+            (showProperties)="showProperties($event)" 
+            (downloadProject)="downloadProject($event)"
+            (downloadSnippet)="downloadSnippet($event)"></app-search-results-list>
+        </div>
+    </div>
+    <div class="row" *ngIf="!listDisplay">
+        <div class="col-12 p-0">
+            <app-search-results-container [results]="results" (openEditor)="openEditor($event)" 
+            (showProperties)="showProperties($event)" (downloadProject)="downloadProject($event)"
+            (downloadSnippet)="downloadSnippet($event)"></app-search-results-container>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-4" *ngIf="results.length==0">
+            <div class="card empty-warning">
+                <div class="card-body text-center text-light mt-5 mb-5 pt-5 pb-5">
+                    <h3 class="font-weight-light">No hay resultados para "{{searchText}}".</h3>
+                </div>
+            </div>
+        </div> 
+    </div>
+</div>

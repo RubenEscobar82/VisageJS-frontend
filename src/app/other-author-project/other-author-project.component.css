@@ -1,0 +1,19 @@
+.project-orverview{
+    border:none;
+    border-radius: 3px;
+}
+.project-orverwvied{
+    /*border-color: rgb(255, 193, 7);*/
+    background-color: rgba(31, 34, 41, 1);
+    cursor: pointer;
+    transition: 0.3s;
+}
+.project-orverwvied:hover{
+    background-color: rgba(39, 75, 112,1);
+    border-color:white
+}
+.project-orverwvied .iframe-container{
+    background-color: white;
+    cursor: pointer;
+    overflow: hidden;
+}

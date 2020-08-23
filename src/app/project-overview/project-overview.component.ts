@@ -15,6 +15,8 @@ export class ProjectOverviewComponent implements OnInit {
   @Output() showProperties = new EventEmitter();
   @Output() deleteContent = new EventEmitter();
   @Output() restore = new EventEmitter();
+  @Output() emitHardDelete = new EventEmitter();
+  @Output() download = new EventEmitter();
   innerContent: string;
   showActions:boolean = false;
   constructor(private router: Router) { }
@@ -56,15 +58,17 @@ export class ProjectOverviewComponent implements OnInit {
   emitShowProperties(){
     this.showProperties.emit(this.content);
   }
-  descargar(e){
-    //
-    e.preventDefault();
-    alert("Descargar Archivo!");
-    e.stopPropagation();
-    
+  emitDownload(content){
+    this.download.emit(content);    
   }
+
   eliminar(contentId){
-    this.deleteContent.emit(contentId);
+    if(!(this.displayedContent==='deleted')){
+      this.deleteContent.emit(contentId);
+    }
+    else{
+      this.emitHardDelete.emit(contentId);
+    }
   }
   toggleActions(e){
     e.stopPropagation();

@@ -58,9 +58,9 @@ export class SnippetProppertiesModalComponent implements OnInit {
         language: this.languagesForm.get('languageControl').value,
         content: this.content
       }
-      this.connectService.updateSnippet(snippetData).subscribe(res => {
+      this.connectService.updateSnippet(snippetData).subscribe(async res => {
         if(res['ok']==1){
-          this.updateFolderContent.emit(this.folderId);
+          await this.updateFolderContent.emit(this.folderId);
           this.activeModal.close('Close click');
         }
         else{

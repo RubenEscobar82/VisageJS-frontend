@@ -38,9 +38,9 @@ export class SnippetEditorModalComponent implements OnInit {
       language: this.language,
       name: this.snippetName
     };
-    this.connectService.updateSnippet(snippetData).subscribe(res=>{
+    this.connectService.updateSnippet(snippetData).subscribe(async res=>{
       if(res['ok']==1){
-        this.setSnippetEditor();
+        await this.setSnippetEditor();
       }
       else{
         alert("algo salió mal: "+res['error']);

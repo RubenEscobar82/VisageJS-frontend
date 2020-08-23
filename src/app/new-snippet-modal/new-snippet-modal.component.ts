@@ -10,6 +10,7 @@ import { utf8Encode } from '@angular/compiler/src/util';
 })
 export class NewSnippetModalComponent implements OnInit {
   @Output() snippetAdded = new EventEmitter();
+  @Output() exceded = new EventEmitter();
   @Input() folderId : string;
   snippetName: string = "Snippet sin título";
   language: string = "php";
@@ -34,7 +35,10 @@ export class NewSnippetModalComponent implements OnInit {
         this.snippetAdded.emit(snippetData);
       }
       else{
-        alert("algo salió mal: "+res['error']);
+        if(res['error']==='snippetsCount'){
+          this.exceded.emit(res);
+          this.activeModal.close('Close click');
+        }
       }
     });
   }

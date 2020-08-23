@@ -1,16 +1,16 @@
-<app-dashboard-navbar></app-dashboard-navbar>
+<app-dashboard-navbar [selectedSite]="'dashboard'"></app-dashboard-navbar>
 <div class="container-fluid main-container-dashboard">
     <div class="row">
-        <div class="col-10 mx-auto border border-warning rounded pt-3 pb-3">                
+        <div class="col-10 mx-auto rounded pt-4 pb-3 subcontainer shadow">                
             <div class="container-fluid">
                 <div class="row pt-2">                        
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-2 mb-2">
                         <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-outline-warning" (click)="switchDisplay()" [ngClass]="{'active': listDisplay}" 
+                            <button type="button" class="btn dashboard-outline-button" (click)="switchDisplay()" [ngClass]="{'active': listDisplay}" 
                             data-toggle="tooltip" data-placement="top" title="Vista de lista">
                                 <i class="fas fa-list"></i>
                             </button>                    
-                            <button class="btn btn-outline-warning active" (click)="switchDisplay()" [ngClass]="{'active': !listDisplay}" 
+                            <button class="btn dashboard-outline-button active" (click)="switchDisplay()" [ngClass]="{'active': !listDisplay}" 
                             data-toggle="tooltip" data-placement="top" title="Vista de cuadrícula">
                                 <i class="fas fa-th"></i>
                             </button>
@@ -19,11 +19,11 @@
                     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4 mb-2">
                         <div class="input-group input-group-lg">
                             <div class="input-group-prepend">
-                                <button class="btn btn-outline-warning" type="button" id="button-addon2">
+                                <button class="btn dashboard-outline-input" type="button" id="button-addon2">
                                     <i [ngClass]="{'fa fa-th':displayedContent==='folders', 'fas fa-thumbtack':displayedContent==='pinned', 'far fa-trash-alt':displayedContent==='deleted'}"></i>
                                 </button>
                             </div>
-                            <select class="form-control outline-form-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="displayedContent">
+                            <select class="form-control outline-form-input dashboard-outline-input" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" [(ngModel)]="displayedContent">
                                 <option value="folders" selected>Mis Proyectos</option>
                                 <option value="pinned">Fijados</option>
                                 <option value="deleted">Eliminados</option>
@@ -32,10 +32,11 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="input-group input-group-lg">
-                            <input type="text" class="form-control outline-form-input" placeholder="Busca" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <input type="text" class="form-control outline-form-input dashboard-outline-input" placeholder="Busca" aria-label="Recipient's username" 
+                            aria-describedby="button-addon2" [(ngModel)]="searchText" (keyup)="search()">
                             <div class="input-group-append">
-                              <button class="btn btn-outline-warning" type="button" id="button-addon2">
-                                <i class="fas fa-search"></i>
+                              <button class="btn dashboard-outline-button" type="button" id="button-addon2">
+                                <i class="fas fa-search" (click)="search()"></i>
                               </button>
                             </div>
                         </div>                           
@@ -44,10 +45,17 @@
             </div>                            
         </div>
     </div>
-    <div class="row mt-4 mb-5">
-        <div class="col-10 border mx-auto border-warning rounded p-3">
-            <app-folders-nav *ngIf="displayedContent==='folders'" [listDisplay]="listDisplay"></app-folders-nav>
-            <app-deleted *ngIf="displayedContent==='deleted'" [listDisplay]="listDisplay"></app-deleted>
+    <div class="row mt-5 mb-5">
+        <div class="col-10  mx-auto subcontainer rounded p-3 shadow">
+            <ng-container *ngIf="searchText===''">
+                <app-folders-nav *ngIf="displayedContent==='folders'" [listDisplay]="listDisplay"></app-folders-nav>
+                <app-deleted *ngIf="displayedContent==='deleted'" [listDisplay]="listDisplay"></app-deleted>
+                <app-other-author-projects-container *ngIf="displayedContent==='pinned'" [listDisplay]="listDisplay"></app-other-author-projects-container>
+            </ng-container>
+            <div *ngIf="!(searchText==='')">
+                <app-search-results [searchText]="searchText" [results]="results" 
+                [listDisplay]="listDisplay" (return)="searchText=''"></app-search-results>
+            </div>
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -53,6 +54,12 @@ export class ConnectService {
     hdrs.append('Content-Type', 'application/json')
     return this.httpClient.get(`${this.REST_API_SERVER}/proyectos/${folderId}/${projectId}`, {withCredentials: true, headers: hdrs});
   }
+  public updateProjectProperties(data){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.put(`${this.REST_API_SERVER}/proyectos/properties/`, data, {withCredentials: true, headers: hdrs});
+  }
+
   public saveSnippet(snippetName, language, folderId){
     var hdrs = new HttpHeaders();
     hdrs.append('Content-Type', 'application/json')
@@ -82,5 +89,82 @@ export class ConnectService {
     var hdrs = new HttpHeaders();
     hdrs.append('Content-Type', 'application/json')
     return this.httpClient.put(`${this.REST_API_SERVER}/deleted`,{contentId: contentId},{withCredentials: true, headers: hdrs});
+  }
+
+  public hardDelete(contentId){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.delete(`${this.REST_API_SERVER}/deleted/${contentId}`,{withCredentials: true, headers: hdrs});
+  }
+
+  public searchContent(searchText){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.get(`${this.REST_API_SERVER}/proyectos/${searchText}`,{withCredentials: true, headers: hdrs});
+  }
+
+  public getAccountData(){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.get(`${this.REST_API_SERVER}/usuarios`,{withCredentials: true, headers: hdrs});
+  }
+
+  public updateGeneralConfig(data){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.put(`${this.REST_API_SERVER}/usuarios/general_config`, {data: data}, {withCredentials: true, headers: hdrs});
+  }
+
+  public updateSecurityConfig(data){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.put(`${this.REST_API_SERVER}/usuarios/security_config`, {data: data}, {withCredentials: true, headers: hdrs});
+  }
+
+  public updatePlanConfig(pro){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.put(`${this.REST_API_SERVER}/usuarios/plan_config`, {pro: pro}, {withCredentials: true, headers: hdrs});
+  }
+
+  public updateCardConfig(data){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.put(`${this.REST_API_SERVER}/usuarios/card_config`, {data: data}, {withCredentials: true, headers: hdrs});
+  }
+
+  public deleteUser(){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.delete(`${this.REST_API_SERVER}/usuarios`, {withCredentials: true, headers: hdrs});
+  }
+  public exploreProjects(){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.get(`${this.REST_API_SERVER}/explore`, {withCredentials: true, headers: hdrs});
+  }
+
+  public searchPublicProjects(searchText){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.get(`${this.REST_API_SERVER}/explore/${searchText}`, {withCredentials: true, headers: hdrs});
+  }
+
+  public addPin(data){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.post(`${this.REST_API_SERVER}/pinned`, data, {withCredentials: true, headers: hdrs});
+  }
+
+  public removePin(projectId){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.delete(`${this.REST_API_SERVER}/pinned/${projectId}`, {withCredentials: true, headers: hdrs});
+  }
+
+  public getPins(){
+    var hdrs = new HttpHeaders();
+    hdrs.append('Content-Type', 'application/json')
+    return this.httpClient.get(`${this.REST_API_SERVER}/pinned`, {withCredentials: true, headers: hdrs});
   }
 }

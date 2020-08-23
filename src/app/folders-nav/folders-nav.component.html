@@ -1,11 +1,19 @@
 <div class="container-fluid">
     <div class="row" *ngIf="!insideFolder">
         <div class="col-6 col-lg-3 ml-auto">
-            <button class="btn btn-success form-control" (click)="addFolder()"><i class="fas fa-folder-plus"></i> Agregar carpeta</button>
+            <button class="btn form-control create-button" (click)="addFolder()"><i class="fas fa-folder-plus"></i>&nbsp;&nbsp;Agregar carpeta</button>
         </div>
     </div>
     <div class="row">
-        <div class="container-fluid pt-4" *ngIf="!insideFolder">
+        <div class="col-12 mx-auto" *ngIf="folders.length==1">
+            <div class="card mt-5 mb-5 empty-warning">
+                <div class="card-body text-center text-light mt-5 mb-5 pt-5 pb-5">
+                    <h3 class="font-weight-light">No hay ninguna carpeta que mostrar</h3>
+                    <hr class="bg-secondary">
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid pt-4" *ngIf="(!insideFolder) && (folders.length>1)">
             <div class="row" *ngIf="listDisplay">
                 <div class="col-12">
                     <app-folders-list [foldersList]="folders" (renameFolder)="renameFolder($event); $event.stopPropagation()" 
@@ -15,7 +23,7 @@
             </div>
             <div class="row" *ngIf="!listDisplay">
                 <div class="mb-2" [ngClass]="{'col-lg-4':(folder._id=='restored-elements' && folder.content.length>0) || folder._id!='restored-elements'}" *ngFor="let folder of folders; index as i"> 
-                    <div class="card folder text-light" (click)="openFolder(folder._id); $event.preventDefault()"
+                    <div class="card shadow folder text-light" (click)="openFolder(folder._id); $event.preventDefault()"
                     *ngIf="(folder._id=='restored-elements' && folder.content.length>0) || folder._id!='restored-elements'">
                         <div class="icon-container text-center pt-4 pb-4">
                             <i class="fas fa-folder-open fa-6x card-img-top" *ngIf="!(folder._id==='restored-elements')"></i>
@@ -25,8 +33,10 @@
                             <span class="card-title h4">{{folder.name}}</span>
                         </div>
                         <div class="card-footer text-center">
-                            <button type="button" class="btn btn-outline-primary form-control mb-2" (click)="renameFolder(folder); $event.stopPropagation()"><i class="fas fa-edit"></i> Renombrar</button>
-                            <button type="button" class="btn btn-outline-danger form-control" (click)="deleteFolder(folder._id); $event.stopPropagation()"><i class="far fa-trash-alt"></i> Eliminar</button>
+                            <div class="btn-group folder-actions-btn-group" role="group" aria-label="Basic example" >
+                                <button type="button" class="btn edit-button" (click)="renameFolder(folder); $event.stopPropagation()"><i class="fas fa-edit"></i></button>
+                                <button type="button" class="btn erase-button" (click)="deleteFolder(folder._id); $event.stopPropagation()"><i class="fas fa-recycle"></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -40,10 +50,10 @@
                     </button>
                 </div>
                 <div class="col-12 col-lg-3 offset-lg-2 mb-2 mb-lg-0" *ngIf="openedFolder._id!='restored-elements'">
-                        <button class="btn btn-success form-control" (click)="openProjectEditor('new')"><i class="fas fa-laptop-code"></i> Crear proyecto</button>                 
+                        <button class="btn create-button form-control" (click)="openProjectEditor('new')"><i class="fas fa-laptop-code"></i> Crear proyecto</button>                 
                 </div>
                 <div class="col-12 col-lg-3 mb-4 mb-lg-0" *ngIf="openedFolder._id!='restored-elements'">
-                    <button class="btn btn-success form-control" (click)="createSnippet()"><i class="fas fa-file-code"></i> Crear Snippet</button>
+                    <button class="btn create-button form-control" (click)="createSnippet()"><i class="fas fa-file-code"></i> Crear Snippet</button>
                 </div>
             </div>            
             <div class="row mt-lg-4" *ngIf="!listDisplay">
@@ -52,8 +62,11 @@
                     (emitOpenProjectEditor)="openProjectEditor($event)" 
                     (emitOpenSnippetEditor)="openCreatedSnippetEditor($event)" 
                     (showSnippetProperties)="showSnippetProperties($event)" 
+                    (showProjectProperties)="showProjectProperties($event)" 
                     (emitDeleteContent)="deleteContent($event)"
-                    [displayedContent]="'folders'"></app-project-overview-container>
+                    [displayedContent]="'folders'" 
+                    (downloadProject)="downloadProject($event)" 
+                    (downloadSnippet)="downloadSnippet($event)"></app-project-overview-container>
                 </div>                
             </div>
             <div class="row mt-lg-4" *ngIf="listDisplay">
@@ -62,6 +75,10 @@
                     (openProjectEditor)="openProjectEditor($event)" 
                     (openSnippetEditor)="openCreatedSnippetEditor($event)"
                     (openSnippetPropertis)="showSnippetProperties($event)"
+                    (showProjectProperties)="showProjectProperties($event)"
+                    (deleteContent)="deleteContent($event)"
+                    (downloadProject)="downloadProject($event)"
+                    (downloadSnippet)="downloadSnippet($event)"
                     ></app-project-list>
                 </div>
             </div>

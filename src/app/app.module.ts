@@ -32,6 +32,18 @@ import { FoldersNavComponent } from './folders-nav/folders-nav.component';
 import { FoldersListComponent } from './folders-list/folders-list.component';
 import { SnippetProppertiesModalComponent } from './snippet-propperties-modal/snippet-propperties-modal.component';
 import { DeletedComponent } from './deleted/deleted.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { SearchResultsListComponent } from './search-results-list/search-results-list.component';
+import { SearchResultsGridComponent } from './search-results-grid/search-results-grid.component';
+import { SearchResultsContainerComponent } from './search-results-container/search-results-container.component';
+import { AccountConfigComponent } from './account-config/account-config.component';
+import { ProjectPropertiesModalComponent } from './project-properties-modal/project-properties-modal.component';
+import { UiSwitchModule } from 'ngx-toggle-switch';
+import { ProjectsExcededModalComponent } from './projects-exceded-modal/projects-exceded-modal.component';
+import { ExploreComponent } from './explore/explore.component';
+import { OtherAuthorProjectComponent } from './other-author-project/other-author-project.component';
+import { ExternalEditorComponent } from './external-editor/external-editor.component';
+import { OtherAuthorProjectsContainerComponent } from './other-author-projects-container/other-author-projects-container.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +71,18 @@ import { DeletedComponent } from './deleted/deleted.component';
     FoldersNavComponent,
     FoldersListComponent,
     SnippetProppertiesModalComponent,
-    DeletedComponent
+    DeletedComponent,
+    SearchResultsComponent,
+    SearchResultsListComponent,
+    SearchResultsGridComponent,
+    SearchResultsContainerComponent,
+    AccountConfigComponent,
+    ProjectPropertiesModalComponent,
+    ProjectsExcededModalComponent,
+    ExploreComponent,
+    OtherAuthorProjectComponent,
+    ExternalEditorComponent,
+    OtherAuthorProjectsContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -68,7 +91,8 @@ import { DeletedComponent } from './deleted/deleted.component';
     CodemirrorModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    UiSwitchModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

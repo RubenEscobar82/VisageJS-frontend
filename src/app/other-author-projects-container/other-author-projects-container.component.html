@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div class="row" *ngIf="!listDisplay">
+        <div class="col-lg-4" *ngFor="let project of pinnedProjects">
+            <app-other-author-project [content]="project" (emitTogglePin)="togglePin($event)" 
+            (emitOpenEditor)="openEditor($event)"></app-other-author-project>
+        </div>
+    </div>
+    <div class="row" *ngIf="listDisplay">
+        <div class="col-12">
+            <table class="table table-dark">
+                <thead >
+                  <tr>                        
+                    <th></th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Creado</th>
+                    <th scope="col">Última modificación</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of pinnedProjects; index as i" class="listedProject" (click)="openEditor(item)">
+                    <th>
+                      <ng-container *ngIf="item.type">
+                        <i class="fa" [ngClass]="{'fa-laptop-code':item.type==='project', 'fa-file-code':item.type==='snippet'}"></i>
+                      </ng-container>
+                      <ng-container *ngIf="!item.type">
+                        <i class="fas fa-folder-open text-light"></i>
+                      </ng-container>
+                    </th>                   
+                    <td>{{item.name}}</td>
+                    <td class="text-muted">{{item.createdAt}}</td>
+                    <td class="text-muted">{{item.updatedAt}}</td>
+                    <td>{{item.author}}</td>
+                    <td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Descargar proyecto" (click)="emitDownload(item); $event.stopPropagation()"><i class="fas fa-download"></i></button>
+                            <button class="btn btn-outline-warning" ngbTooltip="Remover de proyectos fijados" (click)="togglePin(item); $event.stopPropagation()">
+                                <i class="fas fa-thumbtack"></i>
+                            </button>
+                        </div>                     
+                    </td>
+                  </tr>                      
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-4" *ngIf="pinnedProjects.length==0">
+        <div class="card empty-warning">
+            <div class="card-body text-center text-light mt-5 mb-5 pt-5 pb-5">
+                <h3 class="font-weight-light">No hay ningún contenido que mostrar.</h3>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>

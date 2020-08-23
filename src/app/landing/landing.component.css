@@ -1,18 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@600&display=swap');
+
+.visage-logo{
+    font-family: 'Spartan', sans-serif;
+}
+
 body{
     margin: 0px;
     padding: 0px;
 }
+
 .navbar-dark{
-    background-color: black;
+    background-color: rgb(42, 50, 60);
 }
+
 #masthead{
     height: 100vh;
-
 }
+
+.landing-button{
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(4, 162, 179);
+    border-color:rgb(4, 162, 179);  
+    transition: 200ms;
+    box-shadow: none;
+    
+}
+.landing-button:hover{
+    background-color: rgb(4, 162, 179);    
+    color:white;    
+}
+
+.landing-button:active{
+    background-color: rgb(2, 69, 77);
+    border: none;
+}
+
 .signin-form{
     height:70vh
 }
-.main-container{
+.landing-main-container{
     background: url("../../assets/landing-background.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -21,5 +47,8 @@ body{
 .layer{
     position: absolute;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6)
+    background-color: rgba(0, 0, 0, 0.7);
+}
+.features{
+    background-color: rgb(42, 50, 60);
 }

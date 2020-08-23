@@ -1,0 +1,31 @@
+<div class="card project-orverwvied p-2 mb-2 shadow" (click)="emitOpenEditor()">
+    <div class="actions">
+            <div class="action-list" [hidden]="!showActions">
+                <ul class="list-group">
+                    <li class="list-group-item text-light action" (click)="emitDownload(); $event.stopPropagation()">
+                        <i class="fas fa-download"></i>&nbsp;&nbsp;&nbsp;&nbsp;Descargar
+                    </li>
+                    <li class="list-group-item text-light action" (click)="emitShowProperties(); $event.stopPropagation()">
+                        <i class="fas fa-bars"></i>&nbsp;&nbsp;&nbsp;&nbsp;Propiedades
+                    </li>
+                </ul>                  
+            </div>
+            <button class="actions-btn btn btn-secondary" style="height: 100%;" type="button" data-toggle="tooltip" data-placement="top" title="Acciones" (click)="toggleActions($event)">
+                <i class="fas fa-2x" [ngClass]="{'fa-ellipsis-h':!showActions, 'fa-times':showActions}"></i>
+            </button>                  
+    </div>
+    <ng-container *ngIf="content.type">
+        <iframe [srcdoc]="innerContent | noSanitize" class="project-orverview iframe-container p-2" *ngIf="content.type==='project'"></iframe>
+        <div class="card-img-top text-center" *ngIf="content.type==='snippet'">
+            <div class="icon-container text-light text-center pt-4 pb-4">
+                <i class="fas fa-file-alt fa-7x"></i>
+            </div>
+        </div>
+    </ng-container>
+    <div class="card-body">
+        <p class="h5 text-light">{{content.name}}</p>
+        
+        <small class="text-muted" *ngIf="!content.pinned">En Mis Proyectos/{{content.path}}</small>  
+        <small class="text-muted" *ngIf="content.pinned">En Fijados</small>  
+    </div>
+</div>

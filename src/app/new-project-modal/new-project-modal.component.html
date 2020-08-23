@@ -5,7 +5,18 @@
     </button>
   </div>
   <div class="modal-body">
-    <input type="text" placeholder="Escribe un nombre para el proyecto" class="form-control" [(ngModel)]="projectName">
+      <input type="text" placeholder="Escribe un nombre para el proyecto" class="form-control" [(ngModel)]="projectName">
+      <div class="form-group row mt-2 mb-0" style="height: 2.5rem">
+      <label for="snippetName" class="col-sm-4 col-form-label">Proyecto público: </label>
+      <div class="col-sm-6 h-100 pt-2">
+        <ui-switch [disabled]="!pro" [(ngModel)]="public" size="small" color="rgb(0,123,255)"></ui-switch>
+      </div>
+    </div>
+    <div class="row" *ngIf="!pro">
+      <div class="col-8 offset-4">
+        <small><span class="text-primary" style="cursor: pointer;" (click)="go2Setting()">Atualiza tu plan</span> a Pro para hacer tus proyectos privados</small>
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancelar</button>

@@ -2,6 +2,9 @@
     cursor: pointer;
     transition: 0.5s;
 }
+.table{
+    background-color: rgb(50, 60, 72);
+}
 .listedProject:hover{
     background-color: rgb(39, 75, 112);
 }
@@ -10,4 +13,25 @@
 }
 .btn-group .btn-outline-success{
     border-right-color: rgb(69, 77, 85);
+}
+.erase-button{
+    color: rgb(230, 96, 96);
+    border-color: rgb(230, 96, 96);
+    transition: 200ms;
+    float: right
+}
+.erase-button:hover{
+    background-color: rgb(230, 96, 96);
+    color: white;
+    border-color: rgb(230, 96, 96)
+}
+.edit-button{
+    color: rgb(0, 169, 255);
+    border-color: rgb(0, 169, 255);
+    transition: 200ms;
+}
+.edit-button:hover{
+    background-color: rgb(0, 169, 255);
+    color:white;
+    border-color: rgb(0, 169, 255)
 }

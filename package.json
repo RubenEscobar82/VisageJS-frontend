@@ -23,8 +23,12 @@
     "@ctrl/ngx-codemirror": "^4.0.0",
     "@fortawesome/fontawesome-free": "^5.14.0",
     "@ng-bootstrap/ng-bootstrap": "^7.0.0",
+    "@types/file-saver": "^2.0.1",
     "bootstrap": "^4.5.0",
+    "file-saver": "^2.0.2",
+    "jszip": "^3.5.0",
     "ngx-cookie-service": "^10.0.1",
+    "ngx-toggle-switch": "^2.0.5",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

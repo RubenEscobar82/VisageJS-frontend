@@ -8,17 +8,16 @@
                 <button type="button" class="btn btn-plugin" [ngClass]="{'active': fontawesome}" (click)="toggleFontawesome()" id="btn-fontawesome"  ngbTooltip="Agregar/Quitar CDNs de Font Awesome">Font Awesome 4.7</button>
             </div>
         </div>
-        <div class="col-4 ml-auto p-2">           
+        <div class="col-4 ml-auto p-2" [ngClass]="{'d-none': resize==false}">           
             <div class="btn-group" role="group">
                 <button type="button" class="btn" [ngClass]="{'btn-warning': frameWidth==='48rem', 'btn-outline-warning': frameWidth!='48rem'}" ngbTooltip="768px" (click)="setFrameWidth('48rem')"><i class="fas fa-mobile-alt"></i></button>
                 <button type="button" class="btn" [ngClass]="{'btn-warning': frameWidth==='62rem', 'btn-outline-warning': frameWidth!='62rem'}" ngbTooltip="992px" (click)="setFrameWidth('62rem')"><i class="fas fa-tablet-alt"></i></button>
                 <button type="button" class="btn" [ngClass]="{'btn-warning': frameWidth==='75rem', 'btn-outline-warning': frameWidth!='75rem'}" ngbTooltip="1200px" (click)="setFrameWidth('75rem')"><i class="fas fa-desktop"></i></button>
-                <button type="button" class="btn btn-outline-warning" ngbTooltip="Abrir en otra pestaña"><i class="fas fa-external-link-alt"></i></button>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="col-12 frame-cantainer p-2 text-center" >
+        <div class="col-12 frame-cantainer p-2 text-center" style="overflow-x: auto; overflow-y: auto" >
             <iframe id="iframe" class="border border-secondary" [ngStyle]="{'width': frameWidth}" [srcdoc]="content | noSanitize"></iframe>
         </div>
     </div>

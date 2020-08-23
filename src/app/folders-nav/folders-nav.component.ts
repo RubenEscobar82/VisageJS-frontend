@@ -1,13 +1,18 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ConnectService } from '../connect-service.service';
+import { DownloadService } from '../download.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NewFolderModalComponent } from '../new-folder-modal/new-folder-modal.component';
 import { NewSnippetModalComponent } from '../new-snippet-modal/new-snippet-modal.component'
 import { RenameFolderModalComponent } from '../rename-folder-modal/rename-folder-modal.component';
 import { SnippetEditorModalComponent } from '../snippet-editor-modal/snippet-editor-modal.component';
 import { SnippetProppertiesModalComponent } from '../snippet-propperties-modal/snippet-propperties-modal.component';
+import { ProjectPropertiesModalComponent } from '../project-properties-modal/project-properties-modal.component';
+import { ProjectsExcededModalComponent } from '../projects-exceded-modal/projects-exceded-modal.component';
 import { Router } from '@angular/router';
 import { async } from 'rxjs/internal/scheduler/async';
+
+
 @Component({
   selector: 'app-folders-nav',
   templateUrl: './folders-nav.component.html',
@@ -20,10 +25,10 @@ export class FoldersNavComponent implements OnInit {
   insideFolder: boolean = false;
   openedFolder: any = [];
   displayedContent:string = "folders";
-
+  
   
 
-  constructor( private connectService:ConnectService, private modalService: NgbModal, private router: Router ) { }
+  constructor( private connectService:ConnectService, private modalService: NgbModal, private router: Router, private donwload: DownloadService ) { }
 
   ngOnInit(): void {
     this.updateFoldersList('');
@@ -93,6 +98,11 @@ export class FoldersNavComponent implements OnInit {
       await this.openSnippetEditor(snippetData);
       this.updateFoldersList(this.openedFolder['_id']);
     });
+    modalRef.componentInstance.exceded.subscribe((res)=>{
+      const modalRef = this.modalService.open(ProjectsExcededModalComponent);
+      modalRef.componentInstance.pro = res['pro'];
+      modalRef.componentInstance.type = 'snippets';
+    });
   }
 
   openSnippetEditor(snippetLocationData){
@@ -101,7 +111,6 @@ export class FoldersNavComponent implements OnInit {
   }
 
   openCreatedSnippetEditor(snippetId){
-    console.log(snippetId);
     let snippetLocationData = {
       folderId: this.openedFolder['_id'],
       snippetId: snippetId
@@ -118,6 +127,16 @@ export class FoldersNavComponent implements OnInit {
       this.openFolder(folderId);
     });
   }
+  
+  showProjectProperties(projectId){
+    const modalRef = this.modalService.open(ProjectPropertiesModalComponent);
+    modalRef.componentInstance.projectId = projectId;
+    modalRef.componentInstance.folderId = this.openedFolder['_id'];
+    modalRef.componentInstance.projectUpdated.subscribe(async (folderId)=>{
+      await this.openFolder(folderId);
+      this.updateFoldersList(folderId);
+    });
+  }
 
   deleteContent(contentId){
     let contentToDelete = {
@@ -132,5 +151,13 @@ export class FoldersNavComponent implements OnInit {
         alert(`algo salió mal: ${res['error']}`);
       }
     });
+  }
+
+  downloadProject(project){
+    this.donwload.saveProject(project);
+  }
+
+  downloadSnippet(snippet){
+    this.donwload.saveSnippet(snippet);
   }
 }

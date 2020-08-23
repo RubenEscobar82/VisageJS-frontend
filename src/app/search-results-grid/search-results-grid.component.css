@@ -1,0 +1,48 @@
+.project-orverview{
+    border:none;
+    border-radius: 3px;
+}
+.project-orverwvied{
+    /*border-color: rgb(255, 193, 7);*/
+    background-color: rgba(31, 34, 41, 1);
+    cursor: pointer;
+    transition: 0.3s;
+}
+.project-orverwvied:hover{
+    background-color: rgba(39, 75, 112,1);
+    border-color:white
+}
+.project-orverwvied .iframe-container{
+    background-color: white;
+    cursor: pointer;
+}
+.actions-btn{
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
+    float: right;
+}
+.actions-btn:hover{
+    border-color: rgb(118, 117, 125);
+    background-color: rgb(118, 117, 125);
+    border-radius: 3px;
+}
+.actions-btn:active{
+    background-color: rgb(118, 117, 125);
+}
+.actions{
+    height: 3rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+.actions .action-list{
+    position: absolute;
+    right:0.5rem;
+    top:3.5rem;
+    z-index: 9;
+}
+.action{
+    background-color: rgb(118, 117, 125);
+}
+.action:hover{
+    background-color: rgb(0, 123, 255);
+}

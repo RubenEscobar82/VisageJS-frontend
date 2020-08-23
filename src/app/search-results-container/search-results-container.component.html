@@ -1,0 +1,8 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-4" *ngFor="let item of results">
+            <app-search-results-grid [content]="item" (openEditor)="emitOpenEditor($event)" 
+            (showProperties)="emitShowProperties($event)" (download)="download($event)"></app-search-results-grid>
+        </div>
+    </div>
+</div>

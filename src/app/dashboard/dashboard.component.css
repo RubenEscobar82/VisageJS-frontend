@@ -1,18 +1,43 @@
 body{
-    background-color: rgb(52, 58, 64);
+    background-color: rgb(42, 50, 60);
 }
 .main-container-dashboard{
     padding-top: 5rem;
+}
+body{
+    background-color: rgb(42, 50, 60);
 }
 .outline-form-input{
     background-color: rgb(52, 58, 64);
     color: white;
     border-color: rgb(255, 193, 7);
 }
-.folder{
-    cursor: pointer;
-    background-color: rgba(31, 34, 41, 1);
-}
 .emptyDashboard-advice{
     opacity: 0.7;
+}
+.table{
+    background-color: rgb(50, 60, 72);
+}
+
+.subcontainer{
+    background-color: rgb(50, 60, 72);
+    border: 1px solid;
+    border-color: rgb(69, 82, 98);
+}
+.dashboard-outline-input{
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(4, 162, 179);
+    border-color:rgb(4, 162, 179); 
+}
+
+.dashboard-outline-button{
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(4, 162, 179);
+    border-color:rgb(4, 162, 179);  
+    transition: 200ms;
+    box-shadow: none;
+}
+.dashboard-outline-button:hover, .dashboard-outline-button.active{
+    background-color: rgba(4, 162, 179);
+    color: rgb(255, 255, 255);
 }

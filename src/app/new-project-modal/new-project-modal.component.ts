@@ -8,15 +8,27 @@ import { ConnectService } from '../connect-service.service';
 })
 export class NewProjectModalComponent implements OnInit {
   projectName: string = "Proyecto sin título";
-  @Output() projectAdded = new EventEmitter(); 
+  @Output() projectAdded = new EventEmitter();
+  public: boolean = true;
+  pro: boolean = false;
+
   constructor( public activeModal: NgbActiveModal, private connectService: ConnectService ) { }
 
   ngOnInit(): void {
+    this.connectService.getAccountData().subscribe(res => {
+      if(res['ok']){
+        this.pro=res['userData'].pro;
+      }
+    });
   }
   addProject(){
     if(this.projectName!=""){
+      let data = {
+        name: this.projectName,
+        public: this.public
+      }
       this.activeModal.close('Close click');
-      this.projectAdded.emit(this.projectName);
+      this.projectAdded.emit(data);
     }
   }
 

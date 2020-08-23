@@ -13,8 +13,13 @@ export class ProjectOverviewContainerComponent implements OnInit {
   @Output() emitOpenProjectEditor = new EventEmitter();
   @Output() emitOpenSnippetEditor = new EventEmitter();
   @Output() showSnippetProperties = new EventEmitter();
+  @Output() showProjectProperties = new EventEmitter();
+  @Output() downloadProject = new EventEmitter();
+  @Output() downloadSnippet = new EventEmitter();
   @Output() emitDeleteContent = new EventEmitter();
   @Output() restore = new EventEmitter();
+  @Output() hardDelete = new EventEmitter();
+  
   constructor() { }
 
   ngOnInit(): void {
@@ -32,6 +37,9 @@ export class ProjectOverviewContainerComponent implements OnInit {
     if(content.type==="snippet"){
       this.showSnippetProperties.emit(content._id);
     }
+    if(content.type==="project"){
+      this.showProjectProperties.emit(content._id);
+    }
   }
   emitDeletContent(contentId){
     this.emitDeleteContent.emit(contentId);
@@ -39,5 +47,18 @@ export class ProjectOverviewContainerComponent implements OnInit {
 
   emitRestore(contentId){
     this.restore.emit(contentId);
+  }
+
+  emitHardDelete(contentId){
+    this.hardDelete.emit(contentId);
+  }
+
+  emitDownload(content){
+    if(content.type==="snippet"){
+      this.downloadSnippet.emit(content);
+    }
+    if(content.type==="project"){
+      this.downloadProject.emit(content);
+    }
   }
 }

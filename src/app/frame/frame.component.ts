@@ -13,15 +13,19 @@ export class FrameComponent implements OnInit {
   @Input() fontawesome: boolean;
 
   @Input() content: string;
+  resize: boolean = true;
   @Output() emitBootstrapToggle = new EventEmitter();
   @Output() emitMaterializeToggle = new EventEmitter();
   @Output() emitJQueryToggle = new EventEmitter();
   @Output() emitFontawesomeToggle = new EventEmitter();
 
   constructor() { }
-
+  
   ngOnInit(): void {
-    
+    if(window.innerWidth<=790){
+      this.frameWidth = '48rem';
+      this.resize = false;
+    }
   }
   toggleBootstrap(){
     this.bootstrap = !this.bootstrap;

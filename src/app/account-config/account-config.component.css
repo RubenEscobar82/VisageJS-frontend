@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@600&display=swap');
+
+.visage-logo{
+    font-family: 'Spartan', sans-serif;
+}
+
+.navbar-dark{
+  background-color: rgb(50, 60, 72);
+}
+
+body {
+    overflow-x: hidden;
+    background-color: rgb(42, 50, 60);
+  }
+  .colored-stripe{
+    width: 100%;
+    height: 1rem;
+}
+.config-subcontainer{
+  border: solid 1px;
+  background-color: rgb(50, 60, 72);
+  border-color: rgb(69, 82, 98);
+}
+.important{
+  color:rgb(4, 162, 179);
+}
+.badValue, .badValue:focus{
+  background-color: #F5B7B1;
+}
+.plan{
+    cursor: pointer;
+    border-color: rgba(0,0,0,0);
+    opacity: 0.3;
+}
+.plan.active{
+    opacity: 1;
+}
+  #sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+  }
+  .main-container{
+      padding-top: 3.5rem;
+      height: 100vh;
+  }
+  #sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    margin-top: 3.5rem;
+    font-size: 1.2rem;
+  }
+  #sidebar-wrapper .list-group {
+    width: 15rem;
+  }
+  #page-content-wrapper {
+    min-width: 100vw;
+  }
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  }
+  @media (min-width: 768px) {
+    #sidebar-wrapper {
+      margin-left: 0;
+    }
+    #page-content-wrapper {
+      min-width: 0;
+      width: 100%;
+    }
+    #wrapper.toggled #sidebar-wrapper {
+      margin-left: -15rem;
+    }
+  }

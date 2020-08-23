@@ -1,0 +1,48 @@
+<app-dashboard-navbar [selectedSite]="'explore'"></app-dashboard-navbar>
+<div class="container-fluid explore-main-container">
+    <div class="row">
+        <div class="col-10 mx-auto subcontainer rounded p-4">
+            <div class="input-group input-group-lg">
+                <input type="text" class="form-control outline-form-input dashboard-outline-input" placeholder="Busca un proyecto o a un desarrollador" aria-label="Recipient's username" 
+                aria-describedby="button-addon2" [(ngModel)]="searchText" (keyup)="search()">
+                <div class="input-group-append">
+                  <button class="btn dashboard-outline-button" type="button" id="button-addon2" (click)="search()">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+            </div>  
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-10 mx-auto subcontainer rounded mb-5">
+            <div class="container-fluid p-4">
+                <div class="row" *ngIf="searchText===''">
+                    <div class="col-lg-4" *ngFor="let project of projects">
+                        <app-other-author-project [content]="project" (emitTogglePin)="togglePin($event)" 
+                        (emitOpenEditor)="openEditor($event)"></app-other-author-project>
+                    </div>
+                    <div class="col-12 mt-4">
+                        <div class="card empty-warning">
+                            <div class="card-body text-center text-light mt-5 mb-5 pt-5 pb-5">
+                                <h3 class="font-weight-light">Parece que haz llegado hasta el final</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" *ngIf="!(searchText==='')">
+                    <div class="col-lg-4" *ngFor="let project of searchResults">
+                        <app-other-author-project [content]="project" (emitTogglePin)="togglePin($event)" 
+                        (emitOpenEditor)="openEditor($event)"></app-other-author-project>
+                    </div>
+                    <div class="col-12 mt-4" *ngIf="searchResults.length==0">
+                        <div class="card empty-warning">
+                            <div class="card-body text-center text-light mt-5 mb-5 pt-5 pb-5">
+                                <h3 class="font-weight-light">No hay resultados para "{{searchText}}".</h3>
+                            </div>
+                        </div>
+                    </div>                  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

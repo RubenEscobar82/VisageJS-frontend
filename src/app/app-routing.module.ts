@@ -7,6 +7,9 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { SignupGuardService } from './signup-guard.service';
 import { AuthGuardService } from './auth-guard.service';
+import { AccountConfigComponent } from './account-config/account-config.component';
+import { ExploreComponent } from './explore/explore.component';
+import { ExternalEditorComponent } from './external-editor/external-editor.component';
 const routes: Routes = [
   {
     path: '', component: LandingComponent,
@@ -22,6 +25,18 @@ const routes: Routes = [
   },
   {
     path:'editor/:folderId/:projectId', component: IdleComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path:'xeditor/:folderId/:projectId', component: ExternalEditorComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'settings/:section', component: AccountConfigComponent,
+    canActivate: [AuthGuardService]
+  },
+  {
+    path: 'explore', component: ExploreComponent,
     canActivate: [AuthGuardService]
   },
   {

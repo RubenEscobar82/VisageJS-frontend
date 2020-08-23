@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@600&display=swap');
+
+.visage-logo{
+    font-family: 'Spartan', sans-serif;
+}
+
 .navbar-dark{
-    background-color: black;
+    background-color: rgb(42, 50, 60);
 }

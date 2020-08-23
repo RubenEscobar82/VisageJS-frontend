@@ -1,5 +1,5 @@
-<app-editor-navbar (guardar)="setFrameContent()"></app-editor-navbar>
-<div class="container-fluid main-container">
+<app-editor-navbar (guardar)="setFrameContent()" (download)="downloadProject()" [projectName]="projectName"></app-editor-navbar>
+<div class="container-fluid editor-main-container">
     <div class="row mb-4">
        <div class="col-12">
            <div class="container-fluid">
